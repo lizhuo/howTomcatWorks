@@ -5,6 +5,11 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @author lizhuo
+ * @Description: Primitive request demo
+ * @date 2019-09-21 11:33
+ */
 public class Request {
 
 	private InputStream inputStream;

@@ -8,6 +8,11 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * @author lizhuo
+ * @Description: Primitive HttpServer demo
+ * @date 2019-09-21 11:33
+ */
 public class HttpServer {
 
 	public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "webroot";

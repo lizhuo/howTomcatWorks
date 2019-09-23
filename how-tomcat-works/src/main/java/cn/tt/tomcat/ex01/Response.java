@@ -2,6 +2,11 @@ package cn.tt.tomcat.ex01;
 
 import java.io.*;
 
+/**
+ * @author lizhuo
+ * @Description: Primitive response demo
+ * @date 2019-09-21 11:33
+ */
 public class Response {
 
 	private static final int BUFFER_SIZE = 1024;
