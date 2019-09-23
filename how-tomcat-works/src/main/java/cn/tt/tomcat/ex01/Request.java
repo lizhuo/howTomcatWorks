@@ -33,7 +33,6 @@ public class Request {
 		}
 		System.out.println("request: " + sb.toString());
 		this.uri = parseURI(sb.toString());
-		this.uri = "index.html";
 	}
 
 	private String parseURI(String request) {
@@ -42,9 +41,9 @@ public class Request {
 			return "";
 		}
 		int idx1, idx2;
-		idx1 = request.indexOf(" ");
+		idx1 = request.indexOf(' ');
 		if (idx1 >= 0) {
-			idx2 = request.indexOf(" ", idx1 + 1);
+			idx2 = request.indexOf(' ', idx1 + 1);
 			if (idx2 > idx1) {
 				return request.substring(idx1 + 1, idx2);
 			}

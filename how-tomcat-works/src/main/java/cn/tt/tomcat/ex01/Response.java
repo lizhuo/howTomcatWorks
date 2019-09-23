@@ -20,12 +20,13 @@ public class Response {
 		byte[] buffer = new byte[BUFFER_SIZE];
 		FileInputStream fis = null;
 		try {
-			File f = new File(HttpServer.WEB_ROOT, this.request.getUri());
-			if (f.exists()) {
-				fis = new FileInputStream(f);
+			System.out.println("file:" + HttpServer.WEB_ROOT + File.separator + this.request.getUri());
+			File file = new File(HttpServer.WEB_ROOT, this.request.getUri());
+			if (file.exists()) {
+				fis = new FileInputStream(file);
 				int ch = fis.read(buffer, 0, BUFFER_SIZE);
 				while (ch != -1) {
-					outputStream.write(ch);
+					outputStream.write(buffer, 0, ch);
 					ch = fis.read(buffer, 0, BUFFER_SIZE);
 				}
 			} else {
@@ -33,7 +34,7 @@ public class Response {
 						+ "Content-Type: text/html\r\n"
 						+ "Content-Length: 23\r\n"
 						+ "\r\n"
-						+ "<h1>File Not Found</h1>";
+						+ "<h1>File Not Found yet.</h1>";
 				outputStream.write(errorMessage.getBytes());
 			}
 			outputStream.flush();
