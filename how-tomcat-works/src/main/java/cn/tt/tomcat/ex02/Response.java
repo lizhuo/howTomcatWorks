@@ -71,7 +71,8 @@ public class Response implements ServletResponse {
 
 	@Override
 	public PrintWriter getWriter() throws IOException {
-		return null;
+		// autoflush is true, println() will flush, but print() will not.
+		return new PrintWriter(outputStream, true);
 	}
 
 	@Override

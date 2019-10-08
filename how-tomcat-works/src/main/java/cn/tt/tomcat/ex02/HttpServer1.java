@@ -1,8 +1,5 @@
 package cn.tt.tomcat.ex02;
 
-import cn.tt.tomcat.ex01.Request;
-import cn.tt.tomcat.ex01.Response;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -48,16 +45,22 @@ public class HttpServer1 {
 				input = socket.getInputStream();
 				output = socket.getOutputStream();
 
+				// create Request object and parse
 				Request request = new Request(input);
 				request.prase();
 
+				// create Response object
 				Response response = new Response(output);
 				response.setRequest(request);
 
+				// check if this is a request for a servlet or a static resource
+				// a request for a servlet begins with "/servlet/"
 				if (request.getUri().startsWith("/servlet/")) {
-
+					ServletProcessor1 processor = new ServletProcessor1();
+					processor.process(request, response);
 				} else {
-
+					StaticResourceProcessor processor = new StaticResourceProcessor();
+					processor.process(request, response);
 				}
 
 				socket.close();
