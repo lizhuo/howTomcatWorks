@@ -1,13 +1,10 @@
 package cn.tt.tomcat.ex02;
 
-import org.apache.commons.lang3.StringUtils;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.Locale;
@@ -22,49 +19,8 @@ public class RequestFacade implements ServletRequest {
 
 	private ServletRequest request = null;
 
-	private InputStream inputStream;
-	private String uri;
-
-	public RequestFacade(ServletRequest request) {
+	public RequestFacade(Request request) {
 		this.request = request;
-	}
-
-	public String getUri() {
-		return uri;
-	}
-
-	public void prase() {
-		StringBuffer sb = new StringBuffer(2048);
-		int i = 0;
-		byte[] buffer = new byte[2048];
-		try {
-			i = inputStream.read(buffer);
-		} catch (IOException e) {
-			e.printStackTrace();
-			i = -1;
-		}
-		for (int j=0; j<i; j++) {
-			sb.append((char) buffer[j]);
-		}
-		System.out.println("ex02 request: " + sb.toString());
-		this.uri = parseURI(sb.toString());
-	}
-
-	private String parseURI(String request) {
-		if (StringUtils.isBlank(request)) {
-			System.out.println("ex02 parse uri exception.");
-			return "";
-		}
-		int idx1, idx2;
-		idx1 = request.indexOf(" ");
-		if (idx1 >= 0) {
-			idx2 = request.indexOf(" ", idx1 + 1);
-			if (idx2 > idx1) {
-				return request.substring(idx1 + 1, idx2);
-			}
-		}
-		System.out.println("ex02 not find URI");
-		return "";
 	}
 
 	@Override

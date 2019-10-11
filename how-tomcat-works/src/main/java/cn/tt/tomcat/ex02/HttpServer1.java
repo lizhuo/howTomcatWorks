@@ -56,7 +56,10 @@ public class HttpServer1 {
 				// check if this is a request for a servlet or a static resource
 				// a request for a servlet begins with "/servlet/"
 				if (request.getUri().startsWith("/servlet/")) {
-					ServletProcessor1 processor = new ServletProcessor1();
+					//ServletProcessor1 processor = new ServletProcessor1();
+					//processor.process(request, response);
+
+					ServletProcessor2 processor = new ServletProcessor2();
 					processor.process(request, response);
 				} else {
 					StaticResourceProcessor processor = new StaticResourceProcessor();

@@ -18,7 +18,7 @@ import java.net.URLStreamHandler;
 public class ServletProcessor2 {
 
     public void process(Request request, Response response) {
-        /*String uri = request.getUri();
+        String uri = request.getUri();
         String servletName = uri.substring(uri.lastIndexOf("/") + 1);
         URLClassLoader loader = null;
 
@@ -48,7 +48,23 @@ public class ServletProcessor2 {
             System.out.println(e.toString());
         }
 
-        Servlet servlet = null;*/
+        Servlet servlet = null;
+        RequestFacade requestFacade = new RequestFacade(request);
+        ResponseFacade responseFacade = new ResponseFacade(response);
+
+        try {
+            servlet = (Servlet) myClass.newInstance();
+            servlet.service((ServletRequest) requestFacade, (ServletResponse) responseFacade);
+        } catch (InstantiationException e) {
+            System.out.println(e.toString());
+        } catch (IllegalAccessException e) {
+            System.out.println(e.toString());
+        } catch (ServletException e) {
+            System.out.println(e.toString());
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+
     }
 
 }

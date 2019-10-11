@@ -1,7 +1,5 @@
 package cn.tt.tomcat.ex02;
 
-import cn.tt.tomcat.ex01.HttpServer;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletResponse;
 import java.io.*;
@@ -14,49 +12,15 @@ import java.util.Locale;
  */
 public class ResponseFacade implements ServletResponse {
 
-	private static final int BUFFER_SIZE = 1024;
-	private Request request;
-	private OutputStream outputStream;
+	private ServletResponse response;
 
-	public ResponseFacade(OutputStream output) {
-		this.outputStream = output;
-	}
-
-	public void setRequest(Request request) {
-		this.request = request;
-	}
-
-	public void SendStaticResource() throws IOException {
-		byte[] buffer = new byte[BUFFER_SIZE];
-		FileInputStream fis = null;
-		System.out.println("file:" + Constants.WEB_ROOT + File.separator + this.request.getUri());
-		try {
-			File file = new File(HttpServer.WEB_ROOT, this.request.getUri());
-			fis = new FileInputStream(file);
-			int ch = fis.read(buffer, 0, BUFFER_SIZE);
-			while (ch != -1) {
-				outputStream.write(buffer, 0, ch);
-				ch = fis.read(buffer, 0, BUFFER_SIZE);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			String errorMessage = "HTTP/1.1 404 File Not Found\r\n"
-					+ "Content-Type: text/html\r\n"
-					+ "Content-Length: 23\r\n"
-					+ "\r\n"
-					+ "<h1>File Not Found yet.</h1>";
-			outputStream.write(errorMessage.getBytes());
-		} finally {
-			outputStream.flush();
-			if (fis != null) {
-				fis.close();
-			}
-		}
+	public ResponseFacade(Response response) {
+		this.response = response;
 	}
 
 	@Override
 	public String getCharacterEncoding() {
-		return null;
+		return response.getCharacterEncoding();
 	}
 
 	@Override
@@ -66,66 +30,66 @@ public class ResponseFacade implements ServletResponse {
 
 	@Override
 	public ServletOutputStream getOutputStream() throws IOException {
-		return null;
+		return response.getOutputStream();
 	}
 
 	@Override
 	public PrintWriter getWriter() throws IOException {
-		return null;
+		return response.getWriter();
 	}
 
 	@Override
 	public void setCharacterEncoding(String s) {
-
+		response.setCharacterEncoding(s);
 	}
 
 	@Override
-	public void setContentLength(int i) {
-
+	public void setContentLength(int length) {
+		response.setContentLength(length);
 	}
 
 	@Override
-	public void setContentType(String s) {
-
+	public void setContentType(String type) {
+		response.setContentType(type);
 	}
 
 	@Override
-	public void setBufferSize(int i) {
-
+	public void setBufferSize(int size) {
+		response.setBufferSize(size);
 	}
 
 	@Override
 	public int getBufferSize() {
-		return 0;
+		return response.getBufferSize();
 	}
 
 	@Override
 	public void flushBuffer() throws IOException {
-
+		response.flushBuffer();
 	}
 
 	@Override
 	public void resetBuffer() {
-
+		response.resetBuffer();
 	}
 
 	@Override
 	public boolean isCommitted() {
-		return false;
+		return response.isCommitted();
 	}
 
 	@Override
 	public void reset() {
-
+		response.reset();
 	}
 
 	@Override
 	public void setLocale(Locale locale) {
-
+		response.setLocale(locale);
 	}
 
 	@Override
 	public Locale getLocale() {
-		return null;
+		return response.getLocale();
 	}
 }
